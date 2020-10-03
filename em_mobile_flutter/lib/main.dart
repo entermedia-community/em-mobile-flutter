@@ -31,8 +31,20 @@ class MyApp extends StatelessWidget {
         ],
       child: MaterialApp(
         title: 'EntermediaDB Demo',
+        //Entermedia Theme Colors
         theme: ThemeData(
-          primarySwatch: Colors.indigo,
+          primaryColor: Color(0xff0c223a),
+          accentColor: Color(0xff61af56),
+          backgroundColor: Colors.white38,
+          //Text Colors
+          textTheme: TextTheme(
+              bodyText1: TextStyle(color: Colors.white),
+              bodyText2: TextStyle(color: Color(0xff92e184))
+          ),
+          //Button Colors
+          buttonTheme: ButtonThemeData(
+            buttonColor: Color(0xff61af56),
+          ),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: AuthenticationWrapper(),
