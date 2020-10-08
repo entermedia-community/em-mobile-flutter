@@ -1,4 +1,4 @@
-import 'package:em_mobile_flutter/HomePage.dart';
+import 'package:em_mobile_flutter/HomeMenu.dart';
 import 'package:em_mobile_flutter/LoginPage.dart';
 import 'package:em_mobile_flutter/authentication.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
           ),
         ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'EntermediaDB Demo',
         //Entermedia Theme Colors
         theme: ThemeData(
@@ -61,7 +62,7 @@ class AuthenticationWrapper extends StatelessWidget {
     final firebaseUser = context.watch<User>();
 
     if(firebaseUser != null){
-      return HomePage();
+      return HomeMenu();
     }
 
     return LoginPage();
