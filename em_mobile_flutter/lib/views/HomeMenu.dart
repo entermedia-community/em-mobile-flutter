@@ -1,5 +1,5 @@
-import 'package:em_mobile_flutter/NavMenu.dart';
-import 'package:em_mobile_flutter/emlogo.dart';
+import 'package:em_mobile_flutter/views/NavMenu.dart';
+import 'package:em_mobile_flutter/models/emlogo.dart';
 import 'package:flutter/material.dart';
 
 class HomeMenu extends StatefulWidget {

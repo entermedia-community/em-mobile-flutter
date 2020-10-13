@@ -1,6 +1,6 @@
-import 'package:em_mobile_flutter/HomeMenu.dart';
-import 'package:em_mobile_flutter/LoginPage.dart';
-import 'package:em_mobile_flutter/authentication.dart';
+import 'package:em_mobile_flutter/views/HomeMenu.dart';
+import 'package:em_mobile_flutter/views/LoginPage.dart';
+import 'package:em_mobile_flutter/services/authentication.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
