@@ -43,11 +43,11 @@ class _LoginPageState extends State<LoginPage> {
               String password = passwordController.text.trim();
               //Get User info from entermedia website
               final EMUser userInfo = await EM.getEMKey(email, password);
-
+              //update state with Entermedia User information
               setState(() {
                 _user = userInfo;
               });
-
+              //Firebase Authentication
               context.read<AuthenticationService>().signIn(
                 email: emailController.text.trim(),
                 password: passwordController.text.trim()
