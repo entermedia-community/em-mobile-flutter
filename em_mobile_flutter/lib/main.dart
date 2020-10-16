@@ -1,3 +1,5 @@
+import 'package:em_mobile_flutter/models/emUser.dart';
+import 'package:em_mobile_flutter/models/userData.dart';
 import 'package:em_mobile_flutter/views/HomeMenu.dart';
 import 'package:em_mobile_flutter/views/LoginPage.dart';
 import 'package:em_mobile_flutter/services/authentication.dart';
@@ -22,6 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
+          ChangeNotifierProvider<userData>(create: (context) => userData()),
           Provider<AuthenticationService>(
               create: (_) => AuthenticationService(FirebaseAuth.instance),
           ),

@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-
+//firebase log in code - Mando
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
 

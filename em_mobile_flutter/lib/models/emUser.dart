@@ -1,38 +1,89 @@
+// To parse this JSON data, do
+//
+//     final emUser = emUserFromJson(jsonString);
+
 import 'dart:convert';
 
-EMUser emUserFromJson(String str) => EMUser.fromJson(json.decode(str));
+EmUser emUserFromJson(String str) => EmUser.fromJson(json.decode(str));
 
-String emUserToJson(EMUser data) => json.encode(data.toJson());
+String emUserToJson(EmUser data) => json.encode(data.toJson());
 
-class EMUser {
-  String email;
-  String password;
-  String entermediakey;
-  String userid;
-  String firebasepassword;
-
-  EMUser({
-    this.email,
-    this.password,
-    this.entermediakey,
-    this.firebasepassword,
-    this.userid,
+class EmUser {
+  EmUser({
+    this.response,
+    this.results,
   });
 
-  factory EMUser.fromJson(Map<String, dynamic> json) => EMUser(
-      email: json["email"],
-      password: json["password"],
-      entermediakey: json["entermediakey"],
-      firebasepassword: json["firebasepassword"],
-      userid: json["userid"]
+  Response response;
+  Results results;
+
+  factory EmUser.fromJson(Map<String, dynamic> json) => EmUser(
+    response: Response.fromJson(json["response"]),
+    results: Results.fromJson(json["results"]),
   );
 
-  Map<String, dynamic> toJson() {
-    return{
-    "email": email,
-    "password": password,
-    "entermediakey": entermediakey
-    };
+  Map<String, dynamic> toJson() => {
+    "response": response.toJson(),
+    "results": results.toJson(),
+  };
+}
 
-  }
+class Response {
+  Response({
+    this.status,
+    this.user,
+  });
+
+  String status;
+  String user;
+
+  factory Response.fromJson(Map<String, dynamic> json) => Response(
+    status: json["status"],
+    user: json["user"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "status": status,
+    "user": user,
+  };
+}
+
+class Results {
+  Results({
+    this.entermediakey,
+    this.firstname,
+    this.lastname,
+    this.email,
+    this.firebasepassword,
+    this.userid,
+    this.screenname,
+  });
+
+  String entermediakey;
+  String firstname;
+  String lastname;
+  String email;
+  String firebasepassword;
+  String userid;
+  String screenname;
+
+  factory Results.fromJson(Map<String, dynamic> json) => Results(
+    entermediakey: json["entermediakey"],
+    firstname: json["firstname"],
+    lastname: json["lastname"],
+    email: json["email"],
+    firebasepassword: json["firebasepassword"],
+    userid: json["userid"],
+    screenname: json["screenname"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "entermediakey": entermediakey,
+    "firstname": firstname,
+    "lastname": lastname,
+    "email": email,
+    "firebasepassword": firebasepassword,
+    "userid": userid,
+    "screenname": screenname,
+  };
 }

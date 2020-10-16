@@ -1,3 +1,5 @@
+import 'package:em_mobile_flutter/models/emUser.dart';
+import 'package:em_mobile_flutter/models/userData.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:em_mobile_flutter/services/authentication.dart';
@@ -10,6 +12,7 @@ class NavMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final myUser = Provider.of<userData>(context, listen : false);
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -23,8 +26,12 @@ class NavMenu extends StatelessWidget {
           ),
           Container(child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Text(
-              ''
+            //testing Consumer class to see if provider is able to grab the correct information.
+              //working as of Oct 16th 2020 - mando
+            child: Consumer<userData>(
+              builder: (context,myUser,child) => Text(
+                  '${myUser.screenname}'
+              ),
             )
           ),
           ),
