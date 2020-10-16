@@ -1,3 +1,4 @@
+include ':em-flutter-app'
 include ':app'
 
 def localPropertiesFile = new File(rootProject.projectDir, "local.properties")
