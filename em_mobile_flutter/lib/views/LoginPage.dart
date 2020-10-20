@@ -19,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    // todo; Calling the global class of userData() and naming it myUser for all widgets nested in it. -> ln 58 of this file.
+    // todo; Calling the global class of userData() and naming it myUser for all widgets nested in it. this will pretty much always happen at under 'Widget build(BuildContext context) {...' -> ln 58, of this file.
     final myUser = Provider.of<userData>(context);
 
     return Scaffold(

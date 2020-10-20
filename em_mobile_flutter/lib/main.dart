@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
     // todo; Provider basically can provide us with instances of any class we specify here. This has to 'wrap' the beginning of the app UI so that every child widget can access the same instance with the
     // todo; Consumer widget (i.e. NavMenu.dart ln 31).
     // todo; When you want to display you must instantiate first with 'final name = Provider.of<SOMECLASS>(context); then wrap UI component with Consumer Widget.
-    // todo; On ln 31 we call the MultiProvider()[] Widget because here we are going to define all classes we need access to globally and this 'wraps' ALL UI components which are in Material App()
+    // todo; On ln 31 we return the MultiProvider()[] Widget because here we are going to define all classes we need access to globally and this 'wraps' ALL UI components which are in Material App()
     // todo; We create necessary Firebase classes and userData(). -> ln 33, below
     return MultiProvider(
         providers: [
