@@ -19,8 +19,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    // todo; Calling the global class of userData() and naming it myUser for all widgets nested in it. -> ln 58 of this file.
     final myUser = Provider.of<userData>(context);
-    // TODO: Lando begin styling below here, thnx - mando
 
     return Scaffold(
       appBar: AppBar(
@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                 //Get User info from entermedia website
                 final EmUser userInfo = await EM.getEMKey(email, password);
                 print(userInfo.results.screenname);
-                //update global Provider of myUser class with Entermedia User information - mando
+                // todo; Here we call and update global myUser class with Entermedia user information after logging in.-> ln 31 NavMenu.dart
                 myUser.addUser(
                     userInfo.results.userid,
                     userInfo.results.screenname,
