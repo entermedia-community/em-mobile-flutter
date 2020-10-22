@@ -30,11 +30,11 @@ class _LoginPageState extends State<LoginPage> {
 
       body: Container(
         //padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 130.0),
-        margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 130.0),
+        //margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 130.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Login:", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 36.0, color: Colors.indigo)),
+            //Text("Login:", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 36.0, color: Colors.indigo)),
             TextField(
               controller: emailController,
               decoration: InputDecoration(

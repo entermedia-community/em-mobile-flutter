@@ -1,17 +1,36 @@
+import 'package:em_mobile_flutter/models/emWorkspaces.dart';
+import 'package:em_mobile_flutter/models/userData.dart';
+import 'package:em_mobile_flutter/services/entermedia.dart';
 import 'package:em_mobile_flutter/views/NavMenu.dart';
 import 'package:em_mobile_flutter/models/emlogo.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'ColWebview.dart' as Col;
+import 'package:webview_flutter/webview_flutter.dart';
+
+
 
 class HomeMenu extends StatefulWidget {
   @override
   _HomeMenuState createState() => _HomeMenuState();
 }
-
+//todo; LAYOUT starts here
 class _HomeMenuState extends State<HomeMenu> {
+  final EnterMedia EM = EnterMedia();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: CustomScrollView(slivers: <Widget>[
+      floatingActionButton: Consumer<userData>(
+        builder: (context,myUser,child) => FloatingActionButton(
+          onPressed: () async {
+            final EmWorkspaces userWorkspaces = await EM.getEMWorkspaces(myUser.userid, myUser.entermediakey);
+            print(userWorkspaces.results);
+          },
+          child: Icon(Icons.refresh),
+        ),
+      ),
+        body:
+        CustomScrollView(slivers: <Widget>[
       SliverAppBar(
           //appbar title & menu goes here
           title: NavMenu(),
@@ -24,27 +43,29 @@ class _HomeMenuState extends State<HomeMenu> {
       SliverList(
         //TODO add forEach type method upon receiving Collection Data
         delegate: SliverChildListDelegate(<Widget>[
-          emWorkspace('assets/alfredlogo.jpg', 'Alfred Music', 'www.test.com'),
+          emWorkspace('assets/alfredlogo.jpg', 'Alfred Music', 'https://entermediadb.org/app/collective/community/index.html?collectionid=AWbFzET9zBh81y9Kc8l2&goaltrackerstaff=*'),
           emWorkspace('assets/cbclogo.jpg', 'Canadian Broadcasting Corp.',
               'www.test.com'),
           emWorkspace(
-              'assets/harvardlogo.jpg', 'Harvard University', 'www.test.com'),
-          emWorkspace('assets/unlogo.jpg', 'United Nations', 'www.test.com'),
-          emWorkspace('assets/yalelogo.jpg', 'Yale University', 'www.test.com'),
-          emWorkspace('assets/alfredlogo.jpg', 'Alfred Music', 'www.test.com'),
+              'assets/harvardlogo.jpg', 'Harvard University', 'https://www.entermediadb.org'),
+          emWorkspace('assets/unlogo.jpg', 'United Nations', 'www.entermediadb.org'),
+          emWorkspace('assets/yalelogo.jpg', 'Yale University', 'www.entermediadb.org'),
+          emWorkspace('assets/alfredlogo.jpg', 'Alfred Music', 'www.entermediadb.org'),
           emWorkspace('assets/cbclogo.jpg', 'Canadian Broadcasting Corp.',
               'www.test.com'),
           emWorkspace(
-              'assets/harvardlogo.jpg', 'Harvard University', 'www.test.com'),
-          emWorkspace('assets/unlogo.jpg', 'United Nations', 'www.test.com'),
-          emWorkspace('assets/yalelogo.jpg', 'Yale University', 'www.test.com'),
+              'assets/harvardlogo.jpg', 'Harvard University', 'www.entermediadb.org'),
+          emWorkspace('assets/unlogo.jpg', 'United Nations', 'www.entermediadb.org'),
+          emWorkspace('assets/yalelogo.jpg', 'Yale University', 'www.entermediadb.org'),
         ]),
       )
-    ]));
+    ]),
+
+    );
   }
 }
 
-//Custom workspace row layout-Mando
+//todo: Custom workspace row layout, and extra functions-Mando
 Widget emWorkspace(
     String imageVal, String workspaceName, String collectionURL) {
   return Padding(
@@ -118,13 +139,14 @@ Widget rightSide(String collectionURL, BuildContext context) {
         child: IconButton(
           icon: Icon(Icons.web),
           onPressed: () {
+            _openCollectionWV(context, collectionURL);
             //TODO: This button will open to collection Webview
             final snackBar = SnackBar(
               content: Text('No Webview Attached'),
               action: SnackBarAction(
                 label: 'Close',
                 onPressed: () {
-                  // Some code to undo the change.
+
                 },
               ),
             );
@@ -137,4 +159,8 @@ Widget rightSide(String collectionURL, BuildContext context) {
       ),
     ],
   ));
+}
+void _openCollectionWV(BuildContext context, String url) {
+  Navigator.push(context,
+      MaterialPageRoute(builder: (context) => Col.WebViewContainer(url)));
 }
