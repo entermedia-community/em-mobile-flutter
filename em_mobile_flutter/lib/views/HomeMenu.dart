@@ -2,10 +2,10 @@ import 'package:em_mobile_flutter/models/emWorkspaces.dart';
 import 'package:em_mobile_flutter/models/userData.dart';
 import 'package:em_mobile_flutter/services/entermedia.dart';
 import 'package:em_mobile_flutter/views/NavMenu.dart';
-import 'package:em_mobile_flutter/models/emlogo.dart';
+import 'package:em_mobile_flutter/models/emLogo.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'ColWebview.dart' as Col;
+import 'EMWebview.dart' as Col;
 import 'package:webview_flutter/webview_flutter.dart';
 
 
