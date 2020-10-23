@@ -16,14 +16,14 @@ class HomeMenu extends StatefulWidget {
 }
 //todo; LAYOUT starts here
 class _HomeMenuState extends State<HomeMenu> {
-  final EnterMedia EM = EnterMedia();
   @override
   Widget build(BuildContext context) {
+    final EM = Provider.of<EnterMedia>(context);
     return Scaffold(
       floatingActionButton: Consumer<userData>(
         builder: (context,myUser,child) => FloatingActionButton(
           onPressed: () async {
-            final EmWorkspaces userWorkspaces = await EM.getEMWorkspaces(myUser.userid, myUser.entermediakey);
+            final EmWorkspaces userWorkspaces = await EM.getEMWorkspaces();
             print(userWorkspaces.results);
           },
           child: Icon(Icons.refresh),

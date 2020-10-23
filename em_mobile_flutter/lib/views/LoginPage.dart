@@ -15,12 +15,11 @@ class _LoginPageState extends State<LoginPage> {
 
   final TextEditingController passwordController = TextEditingController();
 
-  final EnterMedia EM = EnterMedia();
-
   @override
   Widget build(BuildContext context) {
     // todo; Calling the global class of userData() and naming it myUser for all widgets nested in it. this will pretty much always happen at under 'Widget build(BuildContext context) {...' -> ln 58, of this file.
     final myUser = Provider.of<userData>(context);
+    final EM = Provider.of<EnterMedia>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -53,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                 String email = emailController.text.trim();
                 String password = passwordController.text.trim();
                 //Get User info from entermedia website
-                final EmUser userInfo = await EM.getEMKey(email, password);
+                final EmUser userInfo = await EM.emLogin(email, password);
                 print(userInfo.results.screenname);
                 // todo; Here we call and update global myUser class with Entermedia user information after logging in.-> ln 31 NavMenu.dart
                 myUser.addUser(

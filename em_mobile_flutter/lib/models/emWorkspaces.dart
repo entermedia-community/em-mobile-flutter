@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+//todo; NOTE: Don't touch make copy!
 EmWorkspaces emWorkspacesFromJson(String str) => EmWorkspaces.fromJson(json.decode(str));
 
 String emWorkspacesToJson(EmWorkspaces data) => json.encode(data.toJson());

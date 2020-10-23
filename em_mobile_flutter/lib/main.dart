@@ -2,6 +2,7 @@ import 'package:em_mobile_flutter/models/userData.dart';
 import 'package:em_mobile_flutter/views/HomeMenu.dart';
 import 'package:em_mobile_flutter/views/LoginPage.dart';
 import 'package:em_mobile_flutter/services/authentication.dart';
+import 'package:em_mobile_flutter/services/entermedia.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         providers: [
           // todo; Creating an instance of the global class that will store our users information (see userData.dart in lib/models) after logging in. -> LoginPage.dart ln 22
           ChangeNotifierProvider<userData>(create: (context) => userData()),
+          Provider<EnterMedia>(create: (context) => EnterMedia()),
           Provider<AuthenticationService>(
               create: (_) => AuthenticationService(FirebaseAuth.instance),
           ),
@@ -70,6 +72,7 @@ class AuthenticationWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     final firebaseUser = context.watch<User>();
+    final EM = Provider.of<EnterMedia>(context);
 
     if(firebaseUser != null){
       return HomeMenu();

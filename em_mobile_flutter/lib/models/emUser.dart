@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+//todo; NOTE: Don't touch make copy!
 EmUser emUserFromJson(String str) => EmUser.fromJson(json.decode(str));
 
 String emUserToJson(EmUser data) => json.encode(data.toJson());
