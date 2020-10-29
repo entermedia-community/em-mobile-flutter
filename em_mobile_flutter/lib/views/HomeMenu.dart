@@ -98,7 +98,7 @@ final List<String> images = [
   "https://images.unsplash.com/photo-1532323544230-7191fd51bc1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
   "https://images.unsplash.com/photo-1549488344-cbb6c34cf08b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
 ];
-
+// Be specific in '.yaml' file when using local assets. Might also have to push first: https://stackoverflow.com/questions/52644621/flutter-assets-error-exception-caught-by-image-resource-service
 final List<String> example = [
   'assets/images/one.jpg',
   'assets/images/two.jpg',
@@ -106,6 +106,10 @@ final List<String> example = [
   'assets/images/four.jpg',
   'assets/images/five.jpg',
   'assets/images/six.jpg',
+  'assets/images/seven.jpg',
+  'assets/images/eight.jpg',
+  'assets/images/nine.jpg',
+  'assets/images/ten.jpg',
 
 ];
 
