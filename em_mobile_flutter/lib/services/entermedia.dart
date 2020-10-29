@@ -12,7 +12,7 @@ class EnterMedia {
   //Generic post method
   Future<Map> post(String url, Map jsonBody) async {
     //Set headers
-    var headers = {};
+    var headers = <String,String>{};
     if (emUser != null) {
       print("Setting Headers.");
       //Important must specify types! Dart defaults to dynamic and http.post requires definitive types.

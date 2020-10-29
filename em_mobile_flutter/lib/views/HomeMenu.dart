@@ -2,26 +2,27 @@ import 'package:em_mobile_flutter/models/emWorkspaces.dart';
 import 'package:em_mobile_flutter/models/userData.dart';
 import 'package:em_mobile_flutter/services/entermedia.dart';
 import 'package:em_mobile_flutter/views/NavMenu.dart';
+import 'package:em_mobile_flutter/views/NavRail.dart';
 import 'package:em_mobile_flutter/models/emLogo.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'EMWebview.dart' as Col;
 import 'package:webview_flutter/webview_flutter.dart';
 
-
-
 class HomeMenu extends StatefulWidget {
   @override
   _HomeMenuState createState() => _HomeMenuState();
 }
+
 //todo; LAYOUT starts here
 class _HomeMenuState extends State<HomeMenu> {
+  int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     final EM = Provider.of<EnterMedia>(context);
     return Scaffold(
       floatingActionButton: Consumer<userData>(
-        builder: (context,myUser,child) => FloatingActionButton(
+        builder: (context, myUser, child) => FloatingActionButton(
           onPressed: () async {
             final EmWorkspaces userWorkspaces = await EM.getEMWorkspaces();
             print(userWorkspaces.results);
@@ -29,138 +30,83 @@ class _HomeMenuState extends State<HomeMenu> {
           child: Icon(Icons.refresh),
         ),
       ),
-        body:
-        CustomScrollView(slivers: <Widget>[
-      SliverAppBar(
-          //appbar title & menu goes here
-          title: NavMenu(),
-          pinned: true,
-          expandedHeight: 180.0,
-          //logo goes here?
-          flexibleSpace: FlexibleSpaceBar(
-            background: EmLogo(),
-          )),
-      SliverList(
-        //TODO add forEach type method upon receiving Collection Data
-        delegate: SliverChildListDelegate(<Widget>[
-          emWorkspace('assets/alfredlogo.jpg', 'Alfred Music', 'https://entermediadb.org/app/collective/community/index.html?collectionid=AWbFzET9zBh81y9Kc8l2&goaltrackerstaff=*'),
-          emWorkspace('assets/cbclogo.jpg', 'Canadian Broadcasting Corp.',
-              'www.test.com'),
-          emWorkspace(
-              'assets/harvardlogo.jpg', 'Harvard University', 'https://www.entermediadb.org'),
-          emWorkspace('assets/unlogo.jpg', 'United Nations', 'www.entermediadb.org'),
-          emWorkspace('assets/yalelogo.jpg', 'Yale University', 'www.entermediadb.org'),
-          emWorkspace('assets/alfredlogo.jpg', 'Alfred Music', 'www.entermediadb.org'),
-          emWorkspace('assets/cbclogo.jpg', 'Canadian Broadcasting Corp.',
-              'www.test.com'),
-          emWorkspace(
-              'assets/harvardlogo.jpg', 'Harvard University', 'www.entermediadb.org'),
-          emWorkspace('assets/unlogo.jpg', 'United Nations', 'www.entermediadb.org'),
-          emWorkspace('assets/yalelogo.jpg', 'Yale University', 'www.entermediadb.org'),
-        ]),
-      )
-    ]),
-
+      body: Row(
+        children: <Widget>[
+          NavigationRail(
+            extended: false,
+            minWidth: 56,
+            backgroundColor: Color(0xff0c223a),
+            unselectedIconTheme: IconThemeData(color: Colors.white),
+            selectedIconTheme: IconThemeData(color: Color(0xff61af56)),
+            elevation: 10,
+            destinations: [
+              NavigationRailDestination(
+                icon: Icon(Icons.home_rounded),
+                label: Text('Home'),
+              ),
+              NavigationRailDestination(
+                  icon: Icon(Icons.chat_bubble_rounded), label: Text('Chat')),
+              NavigationRailDestination(
+                  icon: Icon(Icons.filter_alt_rounded), label: Text('Search')),
+            ],
+            selectedIndex: _selectedIndex,
+            onDestinationSelected: (int index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
+          ),
+          Expanded(
+            child: CustomScrollView(slivers: <Widget>[
+              SliverAppBar(
+                  //appbar title & menu goes here
+                  title: NavMenu(),
+                  pinned: true,
+                  expandedHeight: 100.0,
+                  //logo goes here?
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: EmLogo(),
+                  )),
+              SliverGrid(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    crossAxisCount: 2,
+                ),
+                delegate: SliverChildBuilderDelegate(
+                        (ctx, i) => Image.asset(
+                      example[i],
+                    ),
+                    childCount: example.length),
+              ),
+            ]),
+          )
+        ],
+      ),
     );
   }
-}
 
-//todo: Custom workspace row layout, and extra functions-Mando
-Widget emWorkspace(
-    String imageVal, String workspaceName, String collectionURL) {
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Material(
-      color: Colors.white,
-      elevation: 14.0,
-      borderRadius: BorderRadius.circular(24.0),
-      shadowColor: Color(0x8092e184),
-      child: Padding(
-          padding: EdgeInsets.all(8.0),
-          // Create an inner BuildContext so that the onPressed methods
-          // can refer to the Scaffold with Scaffold.of(). CANNOT USE BuildContext from original scaffolding.-Mando
-          child: Builder(builder: (BuildContext context) {
-            return emWorkspaceRow(
-                imageVal, workspaceName, collectionURL, context);
-          })),
-    ),
-  );
-}
 
-Center emWorkspaceRow(String imageVal, String workspaceName,
-    String collectionURL, BuildContext context) {
-  return Center(
-      child: Column(
-    children: <Widget>[
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          leftSide(imageVal, workspaceName),
-          rightSide(collectionURL, context),
-        ],
-      )
-    ],
-  ));
 }
+// todo; Load image url into list dynamically from entermedia.
+final List<String> images = [
+  "https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+  "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+  "https://images.unsplash.com/photo-1538688525198-9b88f6f53126?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80",
+  "https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+  "https://images.unsplash.com/photo-1544457070-4cd773b4d71e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=843&q=80",
+  "https://images.unsplash.com/photo-1532323544230-7191fd51bc1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+  "https://images.unsplash.com/photo-1549488344-cbb6c34cf08b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+];
 
-Widget leftSide(String imageVal, String workspaceName) {
-  return Container(
-      child: Row(
-    children: <Widget>[
-      //TODO Change AssetImage to NetworkImage('URL')
-      Container(
-        child: Image(
-          height: 50.0,
-          image: AssetImage(imageVal),
-        ),
-      ),
-      SizedBox(
-        width: 10.0,
-      ),
-      Container(
-        child: Text(
-          workspaceName,
-          style: TextStyle(
-              color: Color(0xff000015),
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w300,
-              fontSize: 16.0),
-        ),
-      ),
-    ],
-  ));
-}
+final List<String> example = [
+  'assets/images/one.jpg',
+  'assets/images/two.jpg',
+  'assets/images/three.jpg',
+  'assets/images/four.jpg',
+  'assets/images/five.jpg',
+  'assets/images/six.jpg',
 
-Widget rightSide(String collectionURL, BuildContext context) {
-  return Container(
-      child: Column(
-    children: <Widget>[
-      Container(
-        child: IconButton(
-          icon: Icon(Icons.web),
-          onPressed: () {
-            _openCollectionWV(context, collectionURL);
-            //TODO: This button will open to collection Webview
-            final snackBar = SnackBar(
-              content: Text('No Webview Attached'),
-              action: SnackBarAction(
-                label: 'Close',
-                onPressed: () {
+];
 
-                },
-              ),
-            );
 
-            // Find the Scaffold in the widget tree and use
-            // it to show a SnackBar.
-            Scaffold.of(context).showSnackBar(snackBar);
-          },
-        ),
-      ),
-    ],
-  ));
-}
-void _openCollectionWV(BuildContext context, String url) {
-  Navigator.push(context,
-      MaterialPageRoute(builder: (context) => Col.WebViewContainer(url)));
-}
