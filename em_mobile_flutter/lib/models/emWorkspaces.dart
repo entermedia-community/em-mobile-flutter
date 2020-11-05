@@ -110,4 +110,5 @@ class Result {
     "id": id,
     "name": name,
   };
+
 }

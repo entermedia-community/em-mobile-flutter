@@ -1,7 +1,10 @@
 import 'package:em_mobile_flutter/models/emUser.dart';
 import 'package:em_mobile_flutter/models/emWorkspaces.dart';
+import 'package:em_mobile_flutter/models/userWorkspaces.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:provider/provider.dart';
 
 class EnterMedia {
   final String EM = 'https://entermediadb.org/entermediadb/app';
@@ -51,7 +54,6 @@ class EnterMedia {
     print("Logging in");
 
     if (resMap != null) {
-      print(resMap);
 
       //save local emUser from response object
       emUser = emUserFromJson(json.encode(resMap));
@@ -62,7 +64,8 @@ class EnterMedia {
   }
 
 //This function retrieves list of workspaces the user is apart of. - Mando Oct 23rd
-  Future<EmWorkspaces> getEMWorkspaces() async {
+  Future<List> getEMWorkspaces() async {
+
 
     final resMap = await post(
       MEDIADB + '/services/module/librarycollection/viewprojects.json',
@@ -70,9 +73,13 @@ class EnterMedia {
     );
     print("Fetching workspaces...");
     if (resMap != null) {
-      print(resMap);
+//      resMap["results"].forEach(() => workSpaces.addName(resMap["results"]["name"]));
+//      resMap["results"].forEach((int i) => workSpaces.addColId(resMap["results"][i]["id"]));
 
-      return emWorkspacesFromJson(json.encode(resMap));
+
+//      emWorkspacesFromJson(json.encode(resMap));
+
+      return resMap["results"];
     } else {
       print("Request failed!");
       return null;
