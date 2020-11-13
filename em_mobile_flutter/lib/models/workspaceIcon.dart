@@ -2,6 +2,7 @@ import 'package:em_mobile_flutter/models/userWorkspaces.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:em_mobile_flutter/views/EMWebview.dart';
 
 class workspaceIcon extends StatefulWidget {
   @override
@@ -10,11 +11,10 @@ class workspaceIcon extends StatefulWidget {
 
 class _workspaceIconState extends State<workspaceIcon> {
   //example List
-  List<String> choices = ["uno", "dos", "tres"];
   @override
   Widget build(BuildContext context) {
     return Consumer<userWorkspaces>(
-      builder: (context, myWorkspaces, child) => PopupMenuButton(
+      builder: (BuildContext context, myWorkspaces, child) => PopupMenuButton(
         icon: Icon(Icons.account_tree_rounded),
         elevation: 15,
         itemBuilder: (BuildContext context) {
@@ -22,18 +22,16 @@ class _workspaceIconState extends State<workspaceIcon> {
             return PopupMenuItem(value: name, child: Text(name));
           }).toList();
         },
-        onSelected: (choice) => choiceAction(choice),
+        onSelected: (name) => {
+          _navigateToNextScreen(context, 'https://google.com')
+          //Grab the Index of Unique Values
+          //You can access the index of a specific value by searching for it with List.indexOf, which returns the index of the first match. This approach is most predictable when all values are unique. A Set can ensure uniqueness throughout the list.
+        },
       ),
     );
   }
 
-  void choiceAction(String choice) {
-    if (choice == choices[0]) {
-      print(choices[0]);
-    } else if (choice == choices[1]) {
-      print(choices[1]);
-    } else if (choice == choices[2]) {
-      print(choices[2]);
-    }
+  void _navigateToNextScreen(BuildContext context, String url) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => WebViewContainer(url)));
   }
 }

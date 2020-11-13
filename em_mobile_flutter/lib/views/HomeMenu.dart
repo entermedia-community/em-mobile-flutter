@@ -5,7 +5,7 @@ import 'package:em_mobile_flutter/models/userWorkspaces.dart';
 import 'package:em_mobile_flutter/models/workspaceIcon.dart';
 import 'package:em_mobile_flutter/services/authentication.dart';
 import 'package:em_mobile_flutter/services/entermedia.dart';
-import 'package:em_mobile_flutter/views/NavMenu.dart';
+import 'package:em_mobile_flutter/views/EMWebview.dart';
 import 'package:em_mobile_flutter/views/NavRail.dart';
 import 'package:em_mobile_flutter/models/emLogo.dart';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
@@ -31,19 +31,20 @@ class _HomeMenuState extends State<HomeMenu> {
       backgroundColor: Color(0xff0c223a),
       floatingActionButton: FloatingActionButton(
           onPressed: () async {
+            _navigateToNextScreen(context);
+//            //This button is to make sure workspaces were loading correctly.
+//            //Perform API call
+//            final userWorkspaces = await EM.getEMWorkspaces();
+//            //Initialize blank Lists
+//            myWorkspaces.names = [];
+//            myWorkspaces.colId = [];
+//            //Loop thru API 'results'
+//            for (final project in userWorkspaces) {
+//
+//              myWorkspaces.names.add(project["name"]);
+//              myWorkspaces.colId.add(project["id"]);
+////              print(myWorkspaces.names);
 
-            //Perform API call
-            final userWorkspaces = await EM.getEMWorkspaces();
-            //Initialize blank Lists
-            myWorkspaces.names = [];
-            myWorkspaces.colId = [];
-            //Loop thru API 'results'
-            for (final project in userWorkspaces) {
-
-              myWorkspaces.names.add(project["name"]);
-              myWorkspaces.colId.add(project["id"]);
-//              print(myWorkspaces.names);
-            }
           },
           child: Icon(Icons.refresh),
         ),
@@ -85,6 +86,9 @@ class _HomeMenuState extends State<HomeMenu> {
       ),
     );
   }
+}
+void _navigateToNextScreen(BuildContext context) {
+  Navigator.of(context).push(MaterialPageRoute(builder: (context) => WebViewContainer('https://google.com')));
 }
 
 // todo; Load image url into list dynamically from entermedia.
